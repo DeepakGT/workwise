@@ -17,6 +17,8 @@ module Workwise
     # in config/environments, which are processed later.
     #
     # config.time_zone = "Central Time (US & Canada)"
+    config.assets.enabled = true
+    config.assets.paths << Rails.root.join('app/assets/fonts')
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
