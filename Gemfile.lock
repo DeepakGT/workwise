@@ -93,8 +93,11 @@ GEM
     faraday-net_http (3.1.0)
       net-http
     ffi (1.16.3)
-    font-awesome-rails (4.7.0.8)
-      railties (>= 3.2, < 8.0)
+    font-awesome-sass (6.5.2)
+      sassc (~> 2.0)
+    font_awesome5_rails (1.5.0)
+      nokogiri (>= 1.11.3)
+      railties (>= 4.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashie (5.0.0)
@@ -153,6 +156,8 @@ GEM
       oauth2 (~> 2.0.6)
       omniauth (~> 2.0)
       omniauth-oauth2 (~> 1.8.0)
+    omniauth-linkedin-oauth2 (1.0.1)
+      omniauth-oauth2
     omniauth-oauth2 (1.8.0)
       oauth2 (>= 1.4, < 3)
       omniauth (~> 2.0)
@@ -272,11 +277,13 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   devise (~> 4.9, >= 4.9.3)
-  font-awesome-rails
+  font-awesome-sass
+  font_awesome5_rails
   jbuilder (~> 2.7)
   listen (~> 3.3)
   omniauth
   omniauth-google-oauth2
+  omniauth-linkedin-oauth2
   omniauth-rails_csrf_protection
   pg (~> 1.5, >= 1.5.5)
   puma (~> 5.0)

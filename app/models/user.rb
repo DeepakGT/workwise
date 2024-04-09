@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2]
+         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2, :linkedin]
 
   has_one_attached :profile_picture
 
@@ -20,5 +20,19 @@ class User < ApplicationRecord
       )
     end
     user
+  end
+
+  def self.connect_to_linkedin(auth, signed_in_resource=nil) 
+    user = User.where(provider: 'linkedin', email: auth.info.email).first
+    if user
+      return user 
+    else
+      registered_user = User.where(:email => auth.info.email).first
+      if registered_user 
+        return registered_user 
+      else 
+        user = User.create(first_name: auth.info.first_name, provider: 'linkedin', uid:auth.uid, email:auth.info.email, password:Devise.friendly_token[0,20])
+      end 
+    end 
   end
 end

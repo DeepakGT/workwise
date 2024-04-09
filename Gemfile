@@ -52,9 +52,10 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise', '~> 4.9', '>= 4.9.3'
-gem "font-awesome-rails"
+gem 'font_awesome5_rails'
 gem 'rails-ujs'
 gem 'omniauth-google-oauth2'
 gem "omniauth-rails_csrf_protection"
 gem 'omniauth'
-
+gem 'omniauth-linkedin-oauth2'
+gem 'font-awesome-sass'

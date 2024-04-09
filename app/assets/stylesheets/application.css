@@ -13,14 +13,13 @@
 /*
  *= require animate
  *= require bootstrap
- *= require jquery.mCustomScrollbar.min
  *= require line-awesome
- *= require responsive
- *= require slick-theme
- *= require application
- *= require flatpickr.min
- *= require jquery.range
  *= require line-awesome-font-awesome
- *= require slick
+ *= require fontawesome-free/css/all.min
+ *= require font-awesome.min
+ *= require jquery.mCustomScrollbar.min
+ *= require slick/slick
+ *= require slick/slick-theme
  *= require style
+ *= require responsive
  */

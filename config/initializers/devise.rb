@@ -26,6 +26,9 @@ Devise.setup do |config|
   # with default "from" parameter.
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
   config.omniauth :google_oauth2, "771112417224-i35i1bc14bb782r3sn18abnrikaeqs4f.apps.googleusercontent.com", "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", {}
+  config.omniauth :linkedin, "77joqp4e4pl0qx", "Zz7l0osSDUXBS7Mp", scope: 'r_liteprofile'
+
+
 
 
   # Configure the class responsible to send e-mails.
