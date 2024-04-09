@@ -11,12 +11,13 @@
  * It is generally better to create a new file per style scope.
  *
 /*
+ *= require custom-font
  *= require animate
  *= require bootstrap
  *= require line-awesome
  *= require line-awesome-font-awesome
- *= require fontawesome-free/css/all.min
- *= require font-awesome.min
+ *= require fontawesome-free/css/all
+ *= require font-awesome
  *= require jquery.mCustomScrollbar.min
  *= require slick/slick
  *= require slick/slick-theme

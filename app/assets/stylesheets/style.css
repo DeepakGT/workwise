@@ -1676,7 +1676,7 @@ main {
 .comment > a:hover {
 	color: #e44d3a;
 }
-.comment > a i {
+.comment > a i, .comment > a svg {
 	font-weight: 600;
 	margin-right: 6px;
 }
