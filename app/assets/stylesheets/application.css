@@ -23,4 +23,5 @@
  *= require slick/slick-theme
  *= require style
  *= require responsive
+ *= require custom-style
  */

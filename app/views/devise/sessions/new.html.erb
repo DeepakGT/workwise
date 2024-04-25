@@ -1,137 +1,122 @@
-<body class="sign-in">
-	<div class="wrapper">		
-		<div class="sign-in-page">
-			<div class="signin-popup">
-				<div class="signin-pop">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="cmp-info">
-								<div class="cm-logo">
-                  <%= image_tag("cm-logo.png", alt: "") %>
-									<p>Workwise,  is a global freelancing platform and social networking where businesses and independent professionals connect and collaborate remotely</p>
-								</div><!--cm-logo end-->
-                  <%= image_tag("cm-main-img.png", alt: "") %>		
-							</div><!--cmp-info end-->
-						</div>
-						<div class="col-lg-6">
-							<div class="login-sec">			
-								<div class="sign_in_sec current" id="tab-1">
-									<h3>Sign in</h3>
-									<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-										<div class="row">
-											<div class="col-lg-12 no-pdd">
-												<div class="sn-field">
-												  <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email" %>
-													<i class="la la-user"></i>
-												</div><!--sn-field end-->
-											</div>
-											<div class="col-lg-12 no-pdd">
-												<div class="sn-field">
-													<%= f.password_field :password, autocomplete: "new-password", placeholder: "Password" %>
-													<i class="la la-lock"></i>
-												</div>
-											</div>
-											<% if devise_mapping.rememberable? %>
-												<div class="col-lg-12 no-pdd">
-													<div class="checky-sec">
-														<div class="fgt-sec">
-														  <%= f.check_box :remember_me %>
-															<label for="c1">
-																<span></span>
-															</label>
-															<small>Remember me</small>
-														</div><!--fgt-sec end-->
-														<a href="#" title="">Forgot Password?</a>
-													</div>
-												</div>
-											<% end %>
-											<div class="col-lg-12 no-pdd">
-                       <%= button_tag "Sign in", type: "submit", value: "submit" %>
+<div class="sign-in-page">
+	<div class="signin-popup">
+		<div class="signin-pop">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="cmp-info">
+						<div class="cm-logo">
+							<%= image_tag("cm-logo.png", alt: "") %>
+							<p>Workwise,  is a global freelancing platform and social networking where businesses and independent professionals connect and collaborate remotely</p>
+						</div><!--cm-logo end-->
+							<%= image_tag("cm-main-img.png", alt: "") %>		
+					</div><!--cmp-info end-->
+				</div>
+				<div class="col-lg-6">
+					<div class="login-sec">
+						<ul class="sign-control">
+							<li data-tab="tab-1" class="current"><a href="#" title="">Sign in</a></li>				
+							<li data-tab="tab-2"><a href="#" title="">Register</a></li>				
+						</ul>
+						<div class="sign_in_sec current" id="tab-1">
+							<h3>Sign in</h3>
+							<%= render partial: 'sign_in_form' %>
+							<div class="login-resources ">
+								<h4>Login Via Social Account</h4>
+								<ul>
+									<li>
+										<%= link_to  "Sign in with Google", user_google_oauth2_omniauth_authorize_path, method: :post, class: "login-with-google-btn custom-color" %>
+									</li>										
+								</ul>
+							</div><!--login-resources end-->
+						</div><!--sign_in_sec end-->
+						<div class="sign_in_sec" id="tab-2">
+							<%# <div class="signup-tab">
+								<i class="fa fa-long-arrow-left"></i>
+								<h2>johndoe@example.com</h2>
+								<ul>
+									<li data-tab="tab-3" class="current"><a href="#" title="">User</a></li>
+									<li data-tab="tab-4"><a href="#" title="">Company</a></li>
+								</ul>
+							</div><!--signup-tab end-->	 %>
+							<div class="dff-tab current" id="tab-3">
+								<h3>Register</h3>
+								<%= render partial: 'devise/registrations/registration_form' %>
+							</div><!--dff-tab end-->
+							<%# <div class="dff-tab" id="tab-4">
+								<form>
+									<div class="row">
+										<div class="col-lg-12 no-pdd">
+											<div class="sn-field">
+												<input type="text" name="company-name" placeholder="Company Name">
+												<i class="la la-building"></i>
 											</div>
 										</div>
-									<% end %>
-									<div class="login-resources ">
-										<h4>Login Via Social Account</h4>
-										<ul>
-											<li>
-												<%= link_to  "Sign in with Google", user_google_oauth2_omniauth_authorize_path, method: :post, class: "login-with-google-btn custom-color" %>
-											</li>										
-										</ul>
-									</div><!--login-resources end-->
-								</div><!--sign_in_sec end-->	
-							</div><!--login-sec end-->
+										<div class="col-lg-12 no-pdd">
+											<div class="sn-field">
+												<input type="text" name="country" placeholder="Country">
+												<i class="la la-globe"></i>
+											</div>
+										</div>
+										<div class="col-lg-12 no-pdd">
+											<div class="sn-field">
+												<input type="password" name="password" placeholder="Password">
+												<i class="la la-lock"></i>
+											</div>
+										</div>
+										<div class="col-lg-12 no-pdd">
+											<div class="sn-field">
+												<input type="password" name="repeat-password" placeholder="Repeat Password">
+												<i class="la la-lock"></i>
+											</div>
+										</div>
+										<div class="col-lg-12 no-pdd">
+											<div class="checky-sec st2">
+												<div class="fgt-sec">
+													<input type="checkbox" name="cc" id="c3">
+													<label for="c3">
+														<span></span>
+													</label>
+													<small>Yes, I understand and agree to the workwise Terms & Conditions.</small>
+												</div><!--fgt-sec end-->
+											</div>
+										</div>
+										<div class="col-lg-12 no-pdd">
+											<button type="submit" value="submit">Get Started</button>
+										</div>
+									</div>
+								</form>
+							</div><!--dff-tab end--> %>
 						</div>
-					</div>		
-				</div><!--signin-pop end-->
-			</div><!--signin-popup end-->
-			<div class="footy-sec">
-				<div class="container">
-					<ul>
-						<li><a href="help-center.html" title="">Help Center</a></li>
-						<li><a href="about.html" title="">About</a></li>
-						<li><a href="#" title="">Privacy Policy</a></li>
-						<li><a href="#" title="">Community Guidelines</a></li>
-						<li><a href="#" title="">Cookies Policy</a></li>
-						<li><a href="#" title="">Career</a></li>
-						<li><a href="forum.html" title="">Forum</a></li>
-						<li><a href="#" title="">Language</a></li>
-						<li><a href="#" title="">Copyright Policy</a></li>
-					</ul>
-					<p> <%= image_tag("copy-icon.png", alt: "") %>Copyright 2019</p>
+					</div><!--login-sec end-->
 				</div>
-			</div><!--footy-sec end-->
-		</div><!--sign-in-page end-->
-
-
-	</div><!--theme-layout end-->
-</body>
+			</div>		
+		</div><!--signin-pop end-->
+	</div><!--signin-popup end-->
+	<div class="footy-sec">
+		<div class="container">
+			<ul>
+				<li><a href="help-center.html" title="">Help Center</a></li>
+				<li><a href="about.html" title="">About</a></li>
+				<li><a href="#" title="">Privacy Policy</a></li>
+				<li><a href="#" title="">Community Guidelines</a></li>
+				<li><a href="#" title="">Cookies Policy</a></li>
+				<li><a href="#" title="">Career</a></li>
+				<li><a href="forum.html" title="">Forum</a></li>
+				<li><a href="#" title="">Language</a></li>
+				<li><a href="#" title="">Copyright Policy</a></li>
+			</ul>
+			<p> <%= image_tag("copy-icon.png", alt: "") %>Copyright 2019</p>
+		</div>
+	</div><!--footy-sec end-->
+</div><!--sign-in-page end-->
 
 
 <style>
+	body {
+		background-color: #e75348;
+	}
 
-.login-with-google-btn {
-  transition: background-color .3s, box-shadow .3s;
-    
-  padding: 12px 16px 12px 42px;
-  border: none;
-  border-radius: 3px;
-  box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
-  
-  color: #757575;
-  font-size: 14px;
-  font-weight: 500;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
-  
-  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=);
-  background-color: white;
-  background-repeat: no-repeat;
-  background-position: 12px 11px;
-  
-  &:hover {
-    box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 2px 4px rgba(0, 0, 0, .25);
-  }
-  
-  &:active {
-    background-color: #eeeeee;
-  }
-  
-  &:focus {
-    outline: none;
-    box-shadow: 
-      0 -1px 0 rgba(0, 0, 0, .04),
-      0 2px 4px rgba(0, 0, 0, .25),
-      0 0 0 3px #c8dafc;
-  }
-  
-  &:disabled {
-    filter: grayscale(100%);
-    background-color: #ebebeb;
-    box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 1px 1px rgba(0, 0, 0, .25);
-    cursor: not-allowed;
-  }
-}
-
-.login-resources ul li a{
-	color: black;
-}
+	.login-resources ul li a {
+			color: #ff0707;
+	}
 </style>

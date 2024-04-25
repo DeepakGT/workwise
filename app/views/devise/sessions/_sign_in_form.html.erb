@@ -1,0 +1,33 @@
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="row">
+    <div class="col-lg-12 no-pdd">
+      <div class="sn-field">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email" %>
+        <i class="la la-user"></i>
+      </div><!--sn-field end-->
+    </div>
+    <div class="col-lg-12 no-pdd">
+      <div class="sn-field">
+        <%= f.password_field :password, autocomplete: "new-password", placeholder: "Password" %>
+        <i class="la la-lock"></i>
+      </div>
+    </div>
+    <% if devise_mapping.rememberable? %>
+      <div class="col-lg-12 no-pdd">
+        <div class="checky-sec">
+          <div class="fgt-sec">
+            <%= f.check_box :remember_me %>
+            <label for="c1">
+              <span></span>
+            </label>
+            <small>Remember me</small>
+          </div><!--fgt-sec end-->
+          <a href="#" title="">Forgot Password?</a>
+        </div>
+      </div>
+    <% end %>
+    <div class="col-lg-12 no-pdd">
+      <%= button_tag "Sign in", type: "submit", value: "submit" %>
+    </div>
+  </div>
+<% end %>
