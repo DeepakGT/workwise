@@ -1,15 +1,44 @@
-<form>
+<%# <form> %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
   <div class="row">
     <div class="col-lg-12 no-pdd">
       <div class="sn-field">
-        <input type="text" name="name" placeholder="Full Name">
+        <%# <input type="text" name="name" placeholder="Full Name"> %>
+        <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", placeholder: "Enter your first name" %>
         <i class="la la-user"></i>
       </div>
     </div>
     <div class="col-lg-12 no-pdd">
       <div class="sn-field">
-        <input type="text" name="country" placeholder="Country">
+        <%# <input type="text" name="name" placeholder="Full Name"> %>
+        <%= f.text_field :last_name, autocomplete: "last_name", placeholder: "Enter your last name" %>
+        <i class="la la-user"></i>
+      </div>
+    </div>
+    <div class="col-lg-12 no-pdd">
+      <div class="sn-field">
+        <%# <input type="text" name="name" placeholder="Full Name"> %>
+        <%= f.text_field :email, autocomplete: "email", placeholder: "Enter your email" %>
+        <%# <i class="las la-mail-bulk"></i> %>
+        <%# <i class="las la-envelope"></i> %>
+        <i class="la la-envelope"></i>
+
+      </div>
+    </div>
+    <div class="col-lg-12 no-pdd">
+      <div class="sn-field">
+        <%# <input type="text" name="country" placeholder="Country"> %>
+        <%= f.country_select :country, priority_countries: ['US', 'CA', 'GB'], prompt: 'Select a country' %>
         <i class="la la-globe"></i>
+      </div>
+    </div>
+    <div class="col-lg-12 no-pdd">
+      <div class="sn-field">
+        <%# <input type="text" name="country" placeholder="Country"> %>
+        <%= f.select :timezone, ActiveSupport::TimeZone.all.map { |tz| [tz.name, tz.name] }, { prompt: 'Select a timezone' } %>
+        <%# <i class="la la-globe"></i> %>
+        <i class="la la-clock-o"></i>
       </div>
     </div>
     <div class="col-lg-12 no-pdd">
@@ -52,4 +81,5 @@
       <button type="submit" value="submit">Get Started</button>
     </div>
   </div>
-</form>
+<% end %>
+<%# </form> %>

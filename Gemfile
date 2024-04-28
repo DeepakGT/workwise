@@ -59,3 +59,4 @@ gem "omniauth-rails_csrf_protection"
 gem 'omniauth'
 gem 'omniauth-linkedin-oauth2'
 gem 'font-awesome-sass'
+gem 'country_select'
