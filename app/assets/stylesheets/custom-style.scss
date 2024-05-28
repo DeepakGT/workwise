@@ -8,3 +8,17 @@ header {
     }
   }
 }
+
+.skills-select2-dropdown ~ .select2-container{
+  ul {
+    border: 1px solid #aaa;
+    .select2-search {
+      input {
+        margin: unset;
+      }
+    }
+  }
+  .select2-selection.select2-selection--multiple {
+    border: unset;
+  }
+}

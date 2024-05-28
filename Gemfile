@@ -60,3 +60,4 @@ gem 'omniauth'
 gem 'omniauth-linkedin-oauth2'
 gem 'font-awesome-sass'
 gem 'country_select'
+gem "select2-rails"

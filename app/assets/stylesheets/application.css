@@ -23,5 +23,6 @@
  *= require slick/slick-theme
  *= require style
  *= require responsive
+ *= require select2
  *= require custom-style
  */

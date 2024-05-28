@@ -232,6 +232,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    select2-rails (4.0.13)
     selenium-webdriver (4.10.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
@@ -297,6 +298,7 @@ DEPENDENCIES
   rails (~> 6.1.0)
   rails-ujs
   sass-rails (>= 6)
+  select2-rails
   selenium-webdriver
   spring
   tzinfo-data
