@@ -6,5 +6,11 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   resources :projects, only: :create
+
+  resources :saved_items, only: :destroy do
+    collection do
+      post ':item_type/:item_id', action: :create
+    end
+  end
   
 end

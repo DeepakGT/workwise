@@ -62,13 +62,13 @@
     </div>
     <div class="col-lg-12 no-pdd">
       <div class="sn-field">
-        <input type="password" name="password" placeholder="Password">
+        <%= f.password_field :password, placeholder: "Password" %>
         <i class="la la-lock"></i>
       </div>
     </div>
     <div class="col-lg-12 no-pdd">
       <div class="sn-field">
-        <input type="password" name="repeat-password" placeholder="Repeat Password">
+        <%= f.password_field :password_confirmation, placeholder: "Repeat Password" %>
         <i class="la la-lock"></i>
       </div>
     </div>

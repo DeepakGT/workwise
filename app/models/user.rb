@@ -6,6 +6,9 @@ class User < ApplicationRecord
 
   has_one_attached :profile_picture
 
+  has_many :saved_items
+  has_many :saved_projects, -> { where(item_type: :Project) }, class_name: :SavedItem
+
 
   def self.from_omniauth(access_token)
     data = access_token.info
