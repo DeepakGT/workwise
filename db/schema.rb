@@ -53,8 +53,10 @@ ActiveRecord::Schema.define(version: 2024_06_04_124838) do
   create_table "projects", force: :cascade do |t|
     t.string "title"
     t.bigint "category_id", null: false
-    t.decimal "min_price", precision: 10, scale: 2
-    t.decimal "max_price", precision: 10, scale: 2
+    t.decimal "min_per_hour_price", precision: 10, scale: 2
+    t.decimal "max_per_hour_price", precision: 10, scale: 2
+    t.decimal "min_total_price", precision: 10, scale: 2
+    t.decimal "max_total_price", precision: 10, scale: 2
     t.text "description"
     t.integer "likes_count", default: 0
     t.datetime "created_at", precision: 6, null: false

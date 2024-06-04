@@ -628,15 +628,42 @@
 					<div class="col-lg-12 pb-3">
 						<%= f.select :skills, options_for_select([]), {}, class: 'skills-select2-dropdown', multiple: true %>
 					</div>
+					<div class="col-lg-12 mb-2">
+						<div class="fgt-sec mr-2">
+							<input type="radio" name="price_type" id="total_price" value="total" checked>
+							<label for="total_price">
+								<span></span>
+							</label>
+							<small>Total price</small>
+						</div>
+						<div class="fgt-sec">
+							<input type="radio" name="price_type" id="per_hour_price" value="per_hour">
+							<label for="per_hour_price">
+								<span></span>
+							</label>
+							<small>Per hour price</small>
+						</div>
+					</div>
 					<div class="col-lg-12">
-						<div class="price-sec">
+						<div class="price-sec" id='totalPriceFieldsSec'>
 							<div class="price-br">
-								<%= f.text_field :min_price, placeholder: "Min Price" %>
+								<%= f.text_field :min_total_price, placeholder: "Min total price" %>
 								<i class="la la-dollar"></i>
 							</div>
 							<span>To</span>
 							<div class="price-br">
-								<%= f.text_field :max_price, placeholder: "Max Price" %>
+								<%= f.text_field :max_total_price, placeholder: "Max total price" %>
+								<i class="la la-dollar"></i>
+							</div>
+						</div>
+						<div class="price-sec d-none" id='perHourPriceFieldsSec'>
+							<div class="price-br">
+								<%= f.text_field :min_per_hour_price, placeholder: "Min price per hour" %>
+								<i class="la la-dollar"></i>
+							</div>
+							<span>To</span>
+							<div class="price-br">
+								<%= f.text_field :max_per_hour_price, placeholder: "Max price per hour" %>
 								<i class="la la-dollar"></i>
 							</div>
 						</div>

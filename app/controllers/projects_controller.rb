@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:title, :category_id, :min_price, :max_price, :description)
+    params.require(:project).permit(:title, :category_id, :min_per_hour_price, :max_per_hour_price, :min_total_price, :max_total_price, :description)
   end
 
   def skills_parameters
