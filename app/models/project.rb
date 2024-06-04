@@ -5,4 +5,5 @@ class Project < ApplicationRecord
   has_many :skills, through: :project_skills
 
   has_many :saved_items, as: :item
+  has_many :likes, as: :likeable
 end

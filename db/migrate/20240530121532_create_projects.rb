@@ -6,6 +6,7 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.decimal :min_price, precision: 10, scale: 2
       t.decimal :max_price, precision: 10, scale: 2
       t.text :description
+      t.integer :likes_count, default: 0
 
       t.timestamps
     end

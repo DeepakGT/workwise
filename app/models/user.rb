@@ -9,6 +9,9 @@ class User < ApplicationRecord
   has_many :saved_items
   has_many :saved_projects, -> { where(item_type: :Project) }, class_name: :SavedItem
 
+  has_many :likes
+  has_many :liked_projects, through: :likes, source: :likeable, source_type: 'Project'
+
 
   def self.from_omniauth(access_token)
     data = access_token.info
