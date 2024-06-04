@@ -33,7 +33,8 @@ ActiveRecord::Schema.define(version: 2024_06_02_142539) do
   create_table "projects", force: :cascade do |t|
     t.string "title"
     t.bigint "category_id", null: false
-    t.decimal "price_per_hour", precision: 10, scale: 2
+    t.decimal "min_price", precision: 10, scale: 2
+    t.decimal "max_price", precision: 10, scale: 2
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
