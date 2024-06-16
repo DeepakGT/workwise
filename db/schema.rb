@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_04_124838) do
+ActiveRecord::Schema.define(version: 2024_06_04_152904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,10 +100,21 @@ ActiveRecord::Schema.define(version: 2024_06_04_124838) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "views", force: :cascade do |t|
+    t.string "viewable_type", null: false
+    t.bigint "viewable_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_views_on_user_id"
+    t.index ["viewable_type", "viewable_id"], name: "index_views_on_viewable"
+  end
+
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "users"
   add_foreign_key "project_skills", "projects"
   add_foreign_key "project_skills", "skills"
   add_foreign_key "projects", "categories"
   add_foreign_key "saved_items", "users"
+  add_foreign_key "views", "users"
 end

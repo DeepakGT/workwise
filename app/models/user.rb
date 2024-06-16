@@ -12,6 +12,8 @@ class User < ApplicationRecord
   has_many :likes
   has_many :liked_projects, through: :likes, source: :likeable, source_type: 'Project'
 
+  has_many :views
+
 
   def self.from_omniauth(access_token)
     data = access_token.info

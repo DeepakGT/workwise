@@ -8,6 +8,7 @@ class Project < ApplicationRecord
   has_many :likes, as: :likeable
 
   has_many :comments, as: :commentable
+  has_many :views, as: :viewable
 
   validates :title, :description, presence: true
 end
