@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
-  resources :projects, only: :create
+  resources :projects, only: [:index, :create]
 
   resources :saved_items, only: :destroy do
     collection do
