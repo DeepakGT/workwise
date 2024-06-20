@@ -19,6 +19,7 @@
  *= require fontawesome-free/css/all
  *= require font-awesome
  *= require jquery.mCustomScrollbar.min
+ *= require jquery.range
  *= require slick/slick
  *= require slick/slick-theme
  *= require style

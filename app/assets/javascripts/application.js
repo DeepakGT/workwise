@@ -10,3 +10,5 @@
 
 //= require custom
 
+//= require_tree .
+
