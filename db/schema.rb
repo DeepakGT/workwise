@@ -61,7 +61,9 @@ ActiveRecord::Schema.define(version: 2024_06_04_152904) do
     t.integer "likes_count", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "uploader_id"
     t.index ["category_id"], name: "index_projects_on_category_id"
+    t.index ["uploader_id"], name: "index_projects_on_uploader_id"
   end
 
   create_table "saved_items", force: :cascade do |t|
@@ -115,6 +117,7 @@ ActiveRecord::Schema.define(version: 2024_06_04_152904) do
   add_foreign_key "project_skills", "projects"
   add_foreign_key "project_skills", "skills"
   add_foreign_key "projects", "categories"
+  add_foreign_key "projects", "users", column: "uploader_id"
   add_foreign_key "saved_items", "users"
   add_foreign_key "views", "users"
 end

@@ -2,6 +2,7 @@ class CreateProjects < ActiveRecord::Migration[6.1]
   def change
     create_table :projects do |t|
       t.string :title
+      t.references :uploader, null: false, foreign_key: {to_table: :users}
       t.references :category, null: false, foreign_key: true
       t.decimal :min_per_hour_price, precision: 10, scale: 2
       t.decimal :max_per_hour_price, precision: 10, scale: 2
