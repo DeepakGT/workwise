@@ -8,6 +8,7 @@
 //= require script
 //= require select2
 
+//= require projects
 //= require custom
 
 //= require_tree .

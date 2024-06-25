@@ -120,7 +120,7 @@
               </div>
             </div><!--filter-secs end-->
           </div>
-          <div class="col-lg-6">
+          <div class="project-container col-lg-6">
             <div class="main-ws-sec">
               <div class="posts-section">
                 <% @projects.map do |project| %>
@@ -174,13 +174,13 @@
                     <div class="job-status-bar">
                       <ul class="like-com">
                         <li>
-                          <a href="#" class="active"><i class="fas fa-heart"></i> 
-                            <%= !!Project.last.likes.find_by(user_id: current_user&.id) ? Liked : Like %>
+                          <a href="/likes/toggle_like_dislike" class=" <%= !!project.likes.find_by(user_id: current_user&.id) ? 'active' : '' %> " data-likeable_type='Project' data-likeable_id='<%= project.id %>'>
+                            <i class="fas fa-heart"></i> Like 
                           </a>
                           <%= image_tag asset_path('liked-img.png') %>
                           <span><%= project.likes.count %></span>
                         </li>
-                        <li><a href="#" class="com"><i class="fas fa-comment-alt"></i> Comments <%= project.comments.count %></a></li>
+                        <li><a href="#" class="com"><i class="fas fa-comment-alt"></i> Comments <custom><%= project.comments.count %></custom></a></li>
                       </ul>
                       <a href="#"><i class="fas fa-eye"></i>Views <%= project.views.count %></a>
                     </div>

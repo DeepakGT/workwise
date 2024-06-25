@@ -12,5 +12,9 @@ Rails.application.routes.draw do
       post ':item_type/:item_id', action: :create
     end
   end
+
+  resources :likes, only: [] do
+    post :toggle_like_dislike, on: :collection
+  end
   
 end
