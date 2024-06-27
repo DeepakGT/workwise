@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
 
   def index
-    @projects = Project.order(created_at: :asc)
+    @projects = ProjectFilterService.call(params[:q], params[:filters], Project.includes(:skills, :category).all).order(created_at: :asc)
   end
 
   def new

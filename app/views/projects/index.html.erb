@@ -26,45 +26,50 @@
                     <h3>Skills</h3>
                     <a href="#" title="">Clear</a>
                   </div>
-                  <form>
+                  <%# <form>
                     <input type="text" name="search-skills" placeholder="Search skills">
-                  </form>
+                  </form> %>
+                  <select style='width:100%' multiple>
+                    <% Skill.all.each do |skill| %>
+                      <option value=<%=skill.id%>><%= skill.title %></option>
+                    <% end %>
+                  </select>
                 </div>
                 <div class="filter-dd">
                   <div class="filter-ttl">
-                    <h3>Availabilty</h3>
+                    <h3>Client Rating</h3>
                     <a href="#" title="">Clear</a>
                   </div>
                   <ul class="avail-checks">
                     <li>
-                      <input type="radio" name="cc" id="c1">
+                      <input type="checkbox" name="cc[]" id="c1">
                       <label for="c1">
                         <span></span>
                       </label>
-                      <small>Hourly</small>
+                      <small>3 Rating</small>
                     </li>
                     <li>
-                      <input type="radio" name="cc" id="c2">
+                      <input type="checkbox" name="cc[]" id="c2">
                       <label for="c2">
                         <span></span>
                       </label>
-                      <small>Part Time</small>
+                      <small>4 Rating</small>
                     </li>
                     <li>
-                      <input type="radio" name="cc" id="c3">
+                      <input type="checkbox" name="cc[]" id="c3">
                       <label for="c3">
                         <span></span>
                       </label>
-                      <small>Full Time</small>
+                      <small>5 Rating</small>
                     </li>
                   </ul>
                 </div>
                 <div class="filter-dd">
                   <div class="filter-ttl">
-                    <h3>Job Type</h3>
+                    <h3>Categories</h3>
                     <a href="#" title="">Clear</a>
                   </div>
-                  <form class="job-tp">
+                  <%# <form class="job-tp">
                     <select>
                       <option>Select a job type</option>
                       <option>Select a job type</option>
@@ -72,7 +77,12 @@
                       <option>Select a job type</option>
                     </select>
                     <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                  </form>
+                  </form> %>
+                  <select class="job-tp" style='width:100%' multiple>
+                    <% Category.all.each do |skill| %>
+                      <option value=<%=skill.id%>><%= skill.title %></option>
+                    <% end %>
+                  </select>
                 </div>
                 <div class="filter-dd">
                   <div class="filter-ttl">
@@ -89,33 +99,14 @@
                 </div>
                 <div class="filter-dd">
                   <div class="filter-ttl">
-                    <h3>Experience Level</h3>
-                    <a href="#" title="">Clear</a>
-                  </div>
-                  <form class="job-tp">
-                    <select>
-                      <option>Select a experience level</option>
-                      <option>3 years</option>
-                      <option>4 years</option>
-                      <option>5 years</option>
-                    </select>
-                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                  </form>
-                </div>
-                <div class="filter-dd">
-                  <div class="filter-ttl">
                     <h3>Countries</h3>
                     <a href="#" title="">Clear</a>
                   </div>
-                  <form class="job-tp">
-                    <select>
-                      <option>Select a country</option>
-                      <option>United Kingdom</option>
-                      <option>United States</option>
-                      <option>Russia</option>
-                    </select>
-                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                  </form>
+                  <select style='width:100%' multiple>
+                    <% User.pluck(:country).each do |country| %>
+                      <option><%= country %></option>
+                    <% end %>
+                  </select>
                 </div>
               </div>
             </div><!--filter-secs end-->
@@ -305,30 +296,30 @@
 
 
 <script>
-
-    function clearFilter(filterSection) {
-        const input = filterSection.querySelector('input[type="text"]');
-        if (input) {
-            input.value = '';
-        }
-
-        const radios = filterSection.querySelectorAll('input[type="radio"]');
-        radios.forEach(radio => {
-            radio.checked = false;
-        });
-
-        const select = filterSection.querySelector('select');
-        if (select) {
-            select.selectedIndex = 0;
-        }
-
-        const slider = filterSection.querySelector('.slider-input');
-        if (slider) {
-            resetSlider();
-        }
+function clearFilter(filterSection) {
+    const input = filterSection.querySelector('input[type="text"]');
+    if (input) {
+        input.value = '';
     }
 
-  var bindEventsOnFilter = function() {
+    const radios = filterSection.querySelectorAll('input[type="radio"], input[type="checkbox"]');
+    radios.forEach(radio => {
+        radio.checked = false;
+    });
+
+    const select = filterSection.querySelector('select');
+    if (select) {
+        select.selectedIndex = -1;
+    }
+
+    const slider = filterSection.querySelector('.slider-input');
+    if (slider) {
+        resetSlider();
+    }
+    hitApi(); // Trigger API call after clearing filters
+}
+
+function bindEventsOnFilter() {
     document.querySelectorAll('.filter-dd .filter-ttl a').forEach(clearBtn => {
         clearBtn.addEventListener('click', (event) => {
             event.preventDefault();
@@ -347,9 +338,16 @@
             });
         });
     }
-  }
 
-  function initializeSlider() {
+    // Bind change events to filter inputs to trigger API call
+    document.querySelectorAll('.filter-dd input, .filter-dd select').forEach(input => {
+        input.addEventListener('change', () => {
+            hitApi();
+        });
+    });
+}
+
+function initializeSlider() {
     $('.rn-slider').jRange({
         from: 0,
         to: 100,
@@ -360,22 +358,57 @@
         showLabels: true,
         isRange: true
     });
-  }
 
-  function resetSlider() {
-      // Remove the existing slider input
-      $('.rn-slider').remove();
-      $('.slider-container').remove();
-      
-      // Recreate the slider input element
-      $('<input class="rn-slider slider-input" type="hidden" value="5,50" />').appendTo('.rg-slider');
-      
-      // Reinitialize the slider
-      initializeSlider();
-  }
+    // Bind mouseup event to the slider for API call
+    $(document).on('mouseup', '.slider-container, .jRange', () => {
+        hitApi();
+    });
+}
 
-  $(document).ready(function(){
+function resetSlider() {
+    // Remove the existing slider input
+    $('.rn-slider').remove();
+    $('.slider-container').remove();
+
+    // Recreate the slider input element
+    $('<input class="rn-slider slider-input" type="hidden" value="5,50" />').appendTo('.rg-slider');
+
+    // Reinitialize the slider
+    initializeSlider();
+}
+
+function hitApi() {
+    const searchQuery = $('input[name="search"]').val();
+    const filters = gatherFilters(); // Implement this function to gather all filter values
+
+    $.ajax({
+        url: '/projects',
+        type: 'GET',
+        data: {
+            q: searchQuery,
+            filters: filters
+        },
+        success: function(response) {
+            // Assuming response is HTML or JSON data from your server
+            // Update your DOM with the filtered projects
+            $('#project-list').html(response); // Example: Update a div with ID 'project-list'
+        },
+        error: function(error) {
+            console.error('Error fetching projects:', error);
+            // Handle errors if needed
+        }
+    });
+}
+
+$(document).ready(function() {
     bindEventsOnFilter();
-  })
+    initializeSlider();
+
+    // Bind the form submit event to trigger API call
+    $('form').on('submit', function(event) {
+        event.preventDefault();
+        hitApi();
+    });
+});
 
 </script>

@@ -14,6 +14,11 @@ class User < ApplicationRecord
 
   has_many :views
 
+  has_many :feedbacks, as: :feedbackable
+
+  def rating
+    self.feedbacks.average(:rating)
+  end
 
   def self.from_omniauth(access_token)
     data = access_token.info

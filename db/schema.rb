@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_04_152904) do
+ActiveRecord::Schema.define(version: 2024_06_27_141933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,18 @@ ActiveRecord::Schema.define(version: 2024_06_04_152904) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.bigint "feedback_by_id", null: false
+    t.string "feedbackable_type", null: false
+    t.bigint "feedbackable_id", null: false
+    t.integer "rating", default: 2
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["feedback_by_id"], name: "index_feedbacks_on_feedback_by_id"
+    t.index ["feedbackable_type", "feedbackable_id"], name: "index_feedbacks_on_feedbackable"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -113,6 +125,7 @@ ActiveRecord::Schema.define(version: 2024_06_04_152904) do
   end
 
   add_foreign_key "comments", "users"
+  add_foreign_key "feedbacks", "users", column: "feedback_by_id"
   add_foreign_key "likes", "users"
   add_foreign_key "project_skills", "projects"
   add_foreign_key "project_skills", "skills"
