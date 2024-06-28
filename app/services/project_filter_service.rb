@@ -15,7 +15,7 @@ module ProjectFilterService
     end
 
     def filter_by_search_keyword(q, projects)
-      projects.where('title LIKE ? OR description LIKE ?', "%#{q}%", "%#{q}%")
+      projects.where('projects.title LIKE ? OR projects.description LIKE ?', "%#{q}%", "%#{q}%")
     end
 
     def filter_by_filters(filters, projects)
@@ -26,10 +26,10 @@ module ProjectFilterService
         when 'client_rating'
           projects = projects.where(client_rating: value)
         when 'categories'
-          projects = projects.joins(:category).where(category: { id: value })
-        when 'pay_rate'
+          projects = projects.joins(:category).where(categories: { id: value })
+        when 'pay_rate_hourly'
           min_rate, max_rate = value.split(',')
-          projects = projects.where('pay_rate >= ? AND pay_rate <= ?', min_rate, max_rate)
+          projects = projects.where('projects.min_per_hour_price >= ? AND projects.max_per_hour_price <= ?', min_rate, max_rate)
         when 'countries'
           projects = projects.where(country: value)
         end
@@ -43,7 +43,7 @@ module ProjectFilterService
     end
 
     def filter_by_categories(category_ids, projects)
-      projects.joins(:category).where(category: { id: category_ids })
+      projects.joins(:category).where(categories: { id: category_ids })
     end
   end
 end

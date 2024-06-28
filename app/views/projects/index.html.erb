@@ -1,7 +1,7 @@
 <div class="search-sec">
   <div class="container">
     <div class="search-box">
-      <form>
+      <form class='project-search-form'>
         <input type="text" name="search" placeholder="Search keywords">
         <button type="submit">Search</button>
       </form>
@@ -26,10 +26,7 @@
                     <h3>Skills</h3>
                     <a href="#" title="">Clear</a>
                   </div>
-                  <%# <form>
-                    <input type="text" name="search-skills" placeholder="Search skills">
-                  </form> %>
-                  <select style='width:100%' multiple>
+                  <select name="skills" style='width:100%' multiple>
                     <% Skill.all.each do |skill| %>
                       <option value=<%=skill.id%>><%= skill.title %></option>
                     <% end %>
@@ -42,21 +39,21 @@
                   </div>
                   <ul class="avail-checks">
                     <li>
-                      <input type="checkbox" name="cc[]" id="c1">
+                      <input type="checkbox" name="client_rating[]" value="3" id="c1">
                       <label for="c1">
                         <span></span>
                       </label>
                       <small>3 Rating</small>
                     </li>
                     <li>
-                      <input type="checkbox" name="cc[]" id="c2">
+                      <input type="checkbox" name="client_rating[]" value="4" id="c2">
                       <label for="c2">
                         <span></span>
                       </label>
                       <small>4 Rating</small>
                     </li>
                     <li>
-                      <input type="checkbox" name="cc[]" id="c3">
+                      <input type="checkbox" name="client_rating[]" value="5" id="c3">
                       <label for="c3">
                         <span></span>
                       </label>
@@ -69,18 +66,9 @@
                     <h3>Categories</h3>
                     <a href="#" title="">Clear</a>
                   </div>
-                  <%# <form class="job-tp">
-                    <select>
-                      <option>Select a job type</option>
-                      <option>Select a job type</option>
-                      <option>Select a job type</option>
-                      <option>Select a job type</option>
-                    </select>
-                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                  </form> %>
-                  <select class="job-tp" style='width:100%' multiple>
-                    <% Category.all.each do |skill| %>
-                      <option value=<%=skill.id%>><%= skill.title %></option>
+                  <select name="categories" class="job-tp" style='width:100%' multiple>
+                    <% Category.all.each do |category| %>
+                      <option value=<%=category.id%>><%= category.title %></option>
                     <% end %>
                   </select>
                 </div>
@@ -90,7 +78,7 @@
                     <a href="#" title="">Clear</a>
                   </div>
                   <div class="rg-slider">
-                    <input class="rn-slider slider-input" type="hidden" value="5,50" />
+                    <input class="rn-slider slider-input" type="hidden" name="pay_rate_hourly" value="5,50" />
                   </div>
                   <div class="rg-limit">
                     <h4>1</h4>
@@ -102,9 +90,9 @@
                     <h3>Countries</h3>
                     <a href="#" title="">Clear</a>
                   </div>
-                  <select style='width:100%' multiple>
+                  <select name="countries" style='width:100%' multiple>
                     <% User.pluck(:country).each do |country| %>
-                      <option><%= country %></option>
+                      <option value="<%= country %>"><%= country %></option>
                     <% end %>
                   </select>
                 </div>
@@ -114,69 +102,7 @@
           <div class="project-container col-lg-6">
             <div class="main-ws-sec">
               <div class="posts-section">
-                <% @projects.map do |project| %>
-                  <div class="post-bar">
-                    <div class="post_topbar">
-                      <div class="usy-dt">
-                        <%= image_tag("resources/us-pic.png", alt: "") %>
-                        <div class="usy-name">
-                          <h3><%= project.uploader.decorate.full_name.titleize %></h3>
-                          <span><%= image_tag asset_path('clock.png') %><%= time_ago_in_words(project.created_at)+ ' ago' %></span>
-                        </div>
-                      </div>
-                      <div class="ed-opts">
-                        <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-                        <ul class="ed-options">
-                          <li><a href="#" title="">Edit Post</a></li>
-                          <li><a href="#" title="">Unsaved</a></li>
-                          <li><a href="#" title="">Unbid</a></li>
-                          <li><a href="#" title="">Close</a></li>
-                          <li><a href="#" title="">Hide</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="epi-sec">
-                      <ul class="descp">
-                        <li><%= image_tag asset_path('icon8.png') %><span><%= project.uploader.profession.titleize %></span></li>
-                        <li><%= image_tag asset_path('icon9.png') %><span><%= project.uploader.country.titleize %></span></li>
-                      </ul>
-                      <ul class="bk-links">
-                        <li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
-                        <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-                        <li><a href="#" title="" class="bid_now">Bid Now</a></li>
-                      </ul>
-                    </div>
-                    <div class="job_descp">
-                      <h3><%= project.title.titleize %></h3>
-                      <ul class="job-dt">
-                        <% if project.min_total_price.present? %>
-                          <li><span><%= "$#{project.min_total_price.to_i} - $#{project.max_total_price.to_i}" %></span></li>
-                        <% elsif project.min_per_hour_price.present? %>
-                          <li><span><%= "$#{project.min_per_hour_price.to_i} - $#{project.max_per_hour_price.to_i}" %> / hour</span></li>
-                        <% end %>
-                      </ul>
-                      <p class='description'><%= "#{project.description[0..150]}..." %> <a href="#" title="">view more</a></p>
-                      <ul class="skill-tags">
-                        <% project.skills.each do |skill| %>
-                          <li><a href="javascript:void(0)" title="<%= skill.title %>"><%= skill.title %></a></li>
-                        <% end %>
-                      </ul>
-                    </div>
-                    <div class="job-status-bar">
-                      <ul class="like-com">
-                        <li>
-                          <a href="/likes/toggle_like_dislike" class=" <%= !!project.likes.find_by(user_id: current_user&.id) ? 'active' : '' %> " data-likeable_type='Project' data-likeable_id='<%= project.id %>'>
-                            <i class="fas fa-heart"></i> Like 
-                          </a>
-                          <%= image_tag asset_path('liked-img.png') %>
-                          <span><%= project.likes.count %></span>
-                        </li>
-                        <li><a href="#" class="com"><i class="fas fa-comment-alt"></i> Comments <custom><%= project.comments.count %></custom></a></li>
-                      </ul>
-                      <a href="#"><i class="fas fa-eye"></i>Views <%= project.views.count %></a>
-                    </div>
-                  </div><!--post-bar end-->
-                <% end %>
+                <%= render partial: 'projects/project_list' %>
                 <div class="process-comm">
                   <div class="spinner">
                     <div class="bounce1"></div>
@@ -297,7 +223,7 @@
 
 <script>
 function clearFilter(filterSection) {
-    const input = filterSection.querySelector('input[type="text"]');
+    const input = filterSection.querySelector('.project-search-form input[type="text"]');
     if (input) {
         input.value = '';
     }
@@ -377,28 +303,66 @@ function resetSlider() {
     initializeSlider();
 }
 
+function gatherFilters() {
+    const filters = {};
+
+    // Collect text inputs
+    document.querySelectorAll('.filter-dd input[type="text"]').forEach(input => {
+        if (input.value) {
+            filters[input.name] = input.value;
+        }
+    });
+
+    // Collect radio and checkbox inputs
+    document.querySelectorAll('.filter-dd input[type="radio"]:checked, .filter-dd input[type="checkbox"]:checked').forEach(input => {
+        if (!filters[input.name]) {
+            filters[input.name] = [];
+        }
+        filters[input.name].push(input.value);
+    });
+
+    // Collect select inputs
+    document.querySelectorAll('.filter-dd select').forEach(select => {
+        if (select.value) {
+            filters[select.name] = select.value;
+        }
+    });
+
+    // Collect slider inputs
+    document.querySelectorAll('.slider-input').forEach(slider => {
+        if (slider.value) {
+            filters[slider.name] = slider.value;
+        }
+    });
+
+    return filters;
+}
+
 function hitApi() {
-    const searchQuery = $('input[name="search"]').val();
-    const filters = gatherFilters(); // Implement this function to gather all filter values
+    const searchQuery = $('.project-search-form input[name="search"]').val(); // Get the value from search input
+    const filters = gatherFilters(); // Assume gatherFilters() gathers filter values correctly
 
     $.ajax({
-        url: '/projects',
-        type: 'GET',
+        url: '/projects', // URL to send the request
+        type: 'GET', // HTTP method (GET in this case)
+        dataType: 'script',
         data: {
-            q: searchQuery,
-            filters: filters
+            q: searchQuery, // Search query parameter
+            filters: JSON.stringify(filters) // Filters object serialized to JSON
         },
         success: function(response) {
-            // Assuming response is HTML or JSON data from your server
-            // Update your DOM with the filtered projects
-            $('#project-list').html(response); // Example: Update a div with ID 'project-list'
+            // Handle successful response
+            $('#project-list').html(response); // Update the content of project-list div with response
         },
         error: function(error) {
+            // Handle errors
             console.error('Error fetching projects:', error);
-            // Handle errors if needed
+            // You can add error handling code here if needed
         }
     });
 }
+
+
 
 $(document).ready(function() {
     bindEventsOnFilter();

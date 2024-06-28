@@ -1,7 +1,13 @@
 class ProjectsController < ApplicationController
 
   def index
-    @projects = ProjectFilterService.call(params[:q], params[:filters], Project.includes(:skills, :category).all).order(created_at: :asc)
+    filters = params[:filters].present? ? JSON.parse(params[:filters]) : {}
+    @projects = ProjectFilterService.call(params[:q], filters, Project.includes(:skills, :category).all).order(created_at: :asc)
+
+    respond_to do |format|
+      format.html # Render HTML by default
+      format.js   # Render JavaScript response for AJAX requests
+    end
   end
 
   def new
