@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_27_141933) do
+ActiveRecord::Schema.define(version: 2024_07_01_161329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,36 @@ ActiveRecord::Schema.define(version: 2024_06_27_141933) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["feedback_by_id"], name: "index_feedbacks_on_feedback_by_id"
     t.index ["feedbackable_type", "feedbackable_id"], name: "index_feedbacks_on_feedbackable"
+  end
+
+  create_table "job_categories", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "job_skills", force: :cascade do |t|
+    t.bigint "job_id", null: false
+    t.bigint "skill_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["job_id"], name: "index_job_skills_on_job_id"
+    t.index ["skill_id"], name: "index_job_skills_on_skill_id"
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.string "title"
+    t.bigint "job_category_id", null: false
+    t.decimal "hourly_price", precision: 10, scale: 2
+    t.decimal "monthly_salary", precision: 10, scale: 2
+    t.string "experience"
+    t.string "job_type"
+    t.text "description"
+    t.bigint "uploader_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["job_category_id"], name: "index_jobs_on_job_category_id"
+    t.index ["uploader_id"], name: "index_jobs_on_uploader_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -126,6 +156,10 @@ ActiveRecord::Schema.define(version: 2024_06_27_141933) do
 
   add_foreign_key "comments", "users"
   add_foreign_key "feedbacks", "users", column: "feedback_by_id"
+  add_foreign_key "job_skills", "jobs"
+  add_foreign_key "job_skills", "skills"
+  add_foreign_key "jobs", "job_categories"
+  add_foreign_key "jobs", "users", column: "uploader_id"
   add_foreign_key "likes", "users"
   add_foreign_key "project_skills", "projects"
   add_foreign_key "project_skills", "skills"
