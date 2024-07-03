@@ -1,0 +1,57 @@
+<% @jobs.each do |job| %>
+  <div class="post-bar">
+    <div class="post_topbar">
+      <div class="usy-dt">
+        <%= image_tag("resources/us-pic.png", alt: "") %>
+        <div class="usy-name">
+          <h3><%= job.uploader.decorate.full_name.titleize %></h3>
+          <span><%= image_tag asset_path('clock.png') %><%= time_ago_in_words(job.created_at)+ ' ago' %></span>
+        </div>
+      </div>
+      <div class="ed-opts">
+        <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+        <ul class="ed-options">
+          <li><a href="#" title="">Edit Post</a></li>
+          <li><a href="#" title="">Unsaved</a></li>
+          <li><a href="#" title="">Unbid</a></li>
+          <li><a href="#" title="">Close</a></li>
+          <li><a href="#" title="">Hide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="epi-sec">
+      <ul class="descp">
+        <li><%= image_tag asset_path('icon8.png') %><span><%= job.uploader.profession.titleize %></span></li>
+        <li><%= image_tag asset_path('icon9.png') %><span><%= job.uploader.country.titleize %></span></li>
+      </ul>
+      <ul class="bk-links">
+        <li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
+        <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
+      </ul>
+    </div>
+    <div class="job_descp">
+      <h3><%= job.title.titleize %></h3>
+      <ul class="job-dt">
+        <li><a href="#" title="">Full Time</a></li>
+        <li><span>$30 / hr</span></li>
+      </ul>
+      <p class='description'><%= "#{job.description[0..150]}..." %> <a href="#" title="">view more</a></p>
+      <ul class="skill-tags">
+        <% job.skills.each do |skill| %>
+          <li><a href="javascript:void(0)" title="<%= skill.title %>"><%= skill.title %></a></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="job-status-bar">
+      <ul class="like-com">
+        <li>
+          <a href="#" class="active"><i class="fas fa-heart"></i> Like</a>
+          <img src="images/liked-img.png" alt="">
+          <span>25</span>
+        </li>
+        <li><a href="#" class="com"><i class="fas fa-comment-alt"></i> Comments 15</a></li>
+      </ul>
+      <a href="#"><i class="fas fa-eye"></i>Views 50</a>
+    </div>
+  </div><!--post-bar end-->
+<% end %>
