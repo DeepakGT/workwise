@@ -149,9 +149,9 @@
 										</ul>
 										<ul class="bk-links">
 											<li id='project-<%=Project.first&.id%>-bookmark'>
-												  <%= link_to '/saved_items/project/1', method: :post, remote: true, title: '' do %>
-														<i class="la la-bookmark <%= 'unsaved' unless my_saved_project?(Project.first&.id) %>"></i>
-													<% end %>
+												<%= link_to '/saved_items/project/1', method: :post, remote: true, title: '' do %>
+													<i class="la la-bookmark <%= 'unsaved' unless my_saved_item?('project', Project.first&.id) %>"></i>
+												<% end %>
 											</li>
 											<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
 										</ul>
