@@ -27,9 +27,3 @@ $(document).ready(function(){
   select2Init()
   togglePriceFieldsInProjectForm()
 })
-
-$(document).ajaxError(function(event, xhr, settings) {
-  if (xhr.status === 401) { // Unauthorized
-    window.location.href = '/users/sign_in'; // Redirect to Devise login page
-  }
-});

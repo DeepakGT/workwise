@@ -8,9 +8,9 @@ Rails.application.routes.draw do
   resources :projects, only: [:index, :create]
   resources :jobs, only: [:index]
 
-  resources :saved_items, only: :destroy do
+  resources :saved_items, only: [] do
     collection do
-      post ':item_type/:item_id', action: :create
+      post ':item_type/:item_id', action: :toggle
     end
   end
 

@@ -148,7 +148,7 @@
 											<li><%= image_tag("icon9.png", alt: "") %><span>India</span></li>
 										</ul>
 										<ul class="bk-links">
-											<li>
+											<li id='project-<%=Project.first&.id%>-bookmark'>
 												  <%= link_to '/saved_items/project/1', method: :post, remote: true, title: '' do %>
 														<i class="la la-bookmark <%= 'unsaved' unless my_saved_project?(Project.first&.id) %>"></i>
 													<% end %>

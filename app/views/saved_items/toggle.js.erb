@@ -1,0 +1,6 @@
+<% if @meta_data['operation'] == 'create' %>
+  $('#<%=j @saved_item.item_type.downcase%>-<%=@saved_item.item_id%>-bookmark .la-bookmark').removeClass('unsaved')
+<% else %>
+  $('#<%=j @saved_item.item_type.downcase%>-<%=@saved_item.item_id%>-bookmark .la-bookmark').addClass('unsaved')
+<% end %>
+
