@@ -1,14 +1,13 @@
 <div class="search-sec">
   <div class="container">
     <div class="search-box">
-      <form>
+      <form class="job-search-form">
         <input type="text" name="search" placeholder="Search keywords">
         <button type="submit">Search</button>
       </form>
     </div><!--search-box end-->
   </div>
 </div><!--search-sec end-->
-
 
 <main>
   <div class="main-section">
@@ -19,7 +18,7 @@
             <div class="filter-secs">
               <div class="filter-heading">
                 <h3>Filters</h3>
-                <a href="#" title="">Clear all filters</a>
+                <a id="clear-all" href="#" title="">Clear all filters</a>
               </div><!--filter-heading end-->
               <div class="paddy">
                 <div class="filter-dd">
@@ -27,33 +26,35 @@
                     <h3>Skills</h3>
                     <a href="#" title="">Clear</a>
                   </div>
-                  <form>
-                    <input type="text" name="search-skills" placeholder="Search skills">
-                  </form>
+                  <select name="skills" style='width:100%' multiple>
+                    <% Skill.all.each do |skill| %>
+                      <option value=<%=skill.id%>><%= skill.title %></option>
+                    <% end %>
+                  </select>
                 </div>
                 <div class="filter-dd">
                   <div class="filter-ttl">
-                    <h3>Availabilty</h3>
+                    <h3>Availability</h3>
                     <a href="#" title="">Clear</a>
                   </div>
                   <ul class="avail-checks">
                     <li>
-                      <input type="radio" name="cc" id="c1">
-                      <label for="c1">
+                      <input type="checkbox" name="availability[]" value="Hourly" id="avail_hourly">
+                      <label for="avail_hourly">
                         <span></span>
                       </label>
                       <small>Hourly</small>
                     </li>
                     <li>
-                      <input type="radio" name="cc" id="c2">
-                      <label for="c2">
+                      <input type="checkbox" name="availability[]" value="Part Time" id="avail_part_time">
+                      <label for="avail_part_time">
                         <span></span>
                       </label>
                       <small>Part Time</small>
                     </li>
                     <li>
-                      <input type="radio" name="cc" id="c3">
-                      <label for="c3">
+                      <input type="checkbox" name="availability[]" value="Full Time" id="avail_full_time">
+                      <label for="avail_full_time">
                         <span></span>
                       </label>
                       <small>Full Time</small>
@@ -65,15 +66,11 @@
                     <h3>Job Type</h3>
                     <a href="#" title="">Clear</a>
                   </div>
-                  <form class="job-tp">
-                    <select>
-                      <option>Select a job type</option>
-                      <option>Select a job type</option>
-                      <option>Select a job type</option>
-                      <option>Select a job type</option>
-                    </select>
-                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                  </form>
+                  <select name="job_types" class="job-tp" style="width:100%" multiple>
+                    <% Job.job_types.keys.each do |job_type| %>
+                      <option value="<%= job_type %>"><%= job_type %></option>
+                    <% end %>
+                  </select>
                 </div>
                 <div class="filter-dd">
                   <div class="filter-ttl">
@@ -81,42 +78,73 @@
                     <a href="#" title="">Clear</a>
                   </div>
                   <div class="rg-slider">
-                                      <input class="rn-slider slider-input" type="hidden" value="5,50" />
-                                  </div>
-                                  <div class="rg-limit">
-                                    <h4>1</h4>
-                                    <h4>100+</h4>
-                                  </div><!--rg-limit end-->
+                    <input class="rn-slider slider-input" type="hidden" name="pay_rate_hourly" value="5,50" />
+                  </div>
+                  <div class="rg-limit">
+                    <h4>1</h4>
+                    <h4>100+</h4>
+                  </div><!--rg-limit end-->
                 </div>
                 <div class="filter-dd">
                   <div class="filter-ttl">
-                    <h3>Experience Level</h3>
+                    <h3>Experience</h3>
                     <a href="#" title="">Clear</a>
                   </div>
-                  <form class="job-tp">
-                    <select>
-                      <option>Select a experience level</option>
-                      <option>3 years</option>
-                      <option>4 years</option>
-                      <option>5 years</option>
-                    </select>
-                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                  </form>
+                  <ul class="avail-checks">
+                    <li>
+                      <input type="radio" name="experience" value="up-to-2" id="exp_up_to_2">
+                      <label for="exp_up_to_2">
+                        <span></span>
+                      </label>
+                      <small>Up to 2 years</small>
+                    </li>
+                    <li>
+                      <input type="radio" name="experience" value="up-to-5" id="exp_up_to_5">
+                      <label for="exp_up_to_5">
+                        <span></span>
+                      </label>
+                      <small>Up to 5 years</small>
+                    </li>
+                    <li>
+                      <input type="radio" name="experience" value="up-to-8" id="exp_up_to_8">
+                      <label for="exp_up_to_8">
+                        <span></span>
+                      </label>
+                      <small>Up to 8 years</small>
+                    </li>
+                    <li>
+                      <input type="radio" name="experience" value="up-to-10" id="exp_up_to_10">
+                      <label for="exp_up_to_10">
+                        <span></span>
+                      </label>
+                      <small>Up to 10 years</small>
+                    </li>
+                    <li>
+                      <input type="radio" name="experience" value="up-to-20" id="exp_up_to_20">
+                      <label for="exp_up_to_20">
+                        <span></span>
+                      </label>
+                      <small>Up to 20 years</small>
+                    </li>
+                    <li>
+                      <input type="radio" name="experience" value="more-than-20" id="exp_more_than_20">
+                      <label for="exp_more_than_20">
+                        <span></span>
+                      </label>
+                      <small>More than 20 years</small>
+                    </li>
+                  </ul>
                 </div>
                 <div class="filter-dd">
                   <div class="filter-ttl">
                     <h3>Countries</h3>
                     <a href="#" title="">Clear</a>
                   </div>
-                  <form class="job-tp">
-                    <select>
-                      <option>Select a country</option>
-                      <option>United Kingdom</option>
-                      <option>United States</option>
-                      <option>Russia</option>
-                    </select>
-                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                  </form>
+                  <select name="countries" style="width:100%" multiple>
+                    <% User.pluck(:country).uniq.each do |country| %>
+                      <option value="<%= country %>"><%= country %></option>
+                    <% end %>
+                  </select>
                 </div>
               </div>
             </div><!--filter-secs end-->
@@ -241,3 +269,161 @@
     </div> 
   </div>
 </main>
+
+<script>
+function clearFilter(filterSection) {
+    const input = filterSection.querySelector('.project-search-form input[type="text"]');
+    if (input) {
+        input.value = '';
+    }
+
+    const radios = filterSection.querySelectorAll('input[type="radio"], input[type="checkbox"]');
+    radios.forEach(radio => {
+        radio.checked = false;
+    });
+
+    const select = filterSection.querySelector('select');
+    if (select) {
+        $(select).val(null).trigger('change'); // Reset select2 multiselect
+    }
+
+    const slider = filterSection.querySelector('.slider-input');
+    if (slider) {
+        resetSlider();
+    }
+    hitApi(); // Trigger API call after clearing filters
+}
+
+function bindEventsOnFilter() {
+    document.querySelectorAll('.filter-dd .filter-ttl a').forEach(clearBtn => {
+        clearBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            const filterSection = clearBtn.closest('.filter-dd');
+            clearFilter(filterSection);
+        });
+    });
+
+    // Clear all filters
+    const clearAllBtn = document.getElementById('clear-all');
+    if (clearAllBtn) {
+        clearAllBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            document.querySelectorAll('.filter-dd').forEach(filterSection => {
+                clearFilter(filterSection);
+            });
+        });
+    }
+
+    // Bind change events to filter inputs to trigger API call
+    document.querySelectorAll('.filter-dd input, .filter-dd select').forEach(input => {
+        input.addEventListener('change', () => {
+            hitApi();
+        });
+    });
+}
+
+function initializeSlider() {
+    $('.rn-slider').jRange({
+        from: 0,
+        to: 100,
+        step: 1,
+        scale: [],
+        format: '%s',
+        width: 300,
+        showLabels: true,
+        isRange: true
+    });
+
+    // Bind mouseup event to the slider for API call
+    $(document).on('mouseup', '.slider-container, .jRange', () => {
+        hitApi();
+    });
+}
+
+function resetSlider() {
+    // Remove the existing slider input
+    $('.rn-slider').remove();
+    $('.slider-container').remove();
+
+    // Recreate the slider input element
+    $('<input class="rn-slider slider-input" type="hidden" value="5,50" />').appendTo('.rg-slider');
+
+    // Reinitialize the slider
+    initializeSlider();
+}
+
+function gatherFilters() {
+    const filters = {};
+
+    // Collect text inputs
+    document.querySelectorAll('.filter-dd input[type="text"]').forEach(input => {
+        if (input.value) {
+            filters[input.name] = input.value;
+        }
+    });
+
+    // Collect radio and checkbox inputs
+    document.querySelectorAll('.filter-dd input[type="radio"]:checked, .filter-dd input[type="checkbox"]:checked').forEach(input => {
+        if (!filters[input.name]) {
+            filters[input.name] = [];
+        }
+        filters[input.name].push(input.value);
+    });
+
+    // Collect select inputs
+    document.querySelectorAll('.filter-dd select').forEach(select => {
+        const selectedOptions = Array.from(select.selectedOptions).map(option => option.value);
+        if (selectedOptions.length > 0) {
+            filters[select.name] = selectedOptions;
+        }
+    });
+
+    // Collect slider inputs
+    document.querySelectorAll('.slider-input').forEach(slider => {
+        if (slider.value) {
+            filters[slider.name] = slider.value;
+        }
+    });
+
+    return filters;
+}
+
+function hitApi() {
+    const searchQuery = $('.project-search-form input[name="search"]').val(); // Get the value from search input
+    const filters = gatherFilters(); // Assume gatherFilters() gathers filter values correctly
+
+    $.ajax({
+        url: '/jobs', // URL to send the request
+        type: 'GET', // HTTP method (GET in this case)
+        dataType: 'script',
+        data: {
+            q: searchQuery, // Search query parameter
+            filters: JSON.stringify(filters) // Filters object serialized to JSON
+        },
+        success: function(response) {
+            // Handle successful response
+            $('#job-list').html(response); // Update the content of job-list div with response
+        },
+        error: function(error) {
+            // Handle errors
+            console.error('Error fetching jobs:', error);
+            // You can add error handling code here if needed
+        }
+    });
+}
+
+$(document).ready(function() {
+    bindEventsOnFilter();
+    initializeSlider();
+
+    // Initialize select2 for multiselects
+    $('select[multiple]').select2();
+
+    // Bind the form submit event to trigger API call
+    $('form').on('submit', function(event) {
+        event.preventDefault();
+        hitApi();
+    });
+});
+
+</script>

@@ -365,14 +365,15 @@ function hitApi() {
 
 
 $(document).ready(function() {
-    bindEventsOnFilter();
-    initializeSlider();
+  $('select[multiple]').select2();
+  bindEventsOnFilter();
+  initializeSlider();
 
-    // Bind the form submit event to trigger API call
-    $('form').on('submit', function(event) {
-        event.preventDefault();
-        hitApi();
-    });
+  // Bind the form submit event to trigger API call
+  $('form').on('submit', function(event) {
+      event.preventDefault();
+      hitApi();
+  });
 });
 
 </script>
