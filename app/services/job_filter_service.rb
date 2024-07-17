@@ -3,47 +3,41 @@ module JobFilterService
     def call(q, filters, jobs)
       return jobs if q.blank? && filters.blank?
 
-      # process(q, filters, jobs)
+      jobs = process_search_query(q, jobs) if q.present?
+      jobs = process_filters(filters, jobs) if filters.present?
+      jobs
     end
 
     private
 
-    # def process(q, filters, projects)
-    #   projects = filter_by_search_keyword(q, projects) if q.present?
-    #   projects = filter_by_filters(filters, projects) if filters.present?
-    #   projects
-    # end
+    def process_search_query(q, jobs)
+      jobs.where('title ILIKE ? OR description ILIKE ?', "%#{q}%", "%#{q}%")
+    end
 
-    # def filter_by_search_keyword(q, projects)
-    #   projects.where('projects.title LIKE ? OR projects.description LIKE ?', "%#{q}%", "%#{q}%")
-    # end
-
-    # def filter_by_filters(filters, projects)
-    #   filters.each do |key, value|
-    #     case key
-    #     when 'skills'
-    #       projects = projects.joins(:skills).where(skills: { id: value })
-    #     when 'client_rating'
-    #       projects = projects.where(client_rating: value)
-    #     when 'categories'
-    #       projects = projects.joins(:category).where(categories: { id: value })
-    #     when 'pay_rate_hourly'
-    #       min_rate, max_rate = value.split(',')
-    #       projects = projects.where('projects.min_per_hour_price >= ? AND projects.max_per_hour_price <= ?', min_rate, max_rate)
-    #     when 'countries'
-    #       projects = projects.where(country: value)
-    #     end
-    #   end
-    #   projects
-    # end
-
-    # # Additional methods for filtering by associations
-    # def filter_by_skills(skill_ids, projects)
-    #   projects.joins(:skills).where(skills: { id: skill_ids })
-    # end
-
-    # def filter_by_categories(category_ids, projects)
-    #   projects.joins(:category).where(categories: { id: category_ids })
-    # end
+    def process_filters(filters, jobs)
+      filters.each do |key, value|
+        case key
+        when 'skills'
+          jobs = jobs.joins(:skills).where(skills: { id: value })
+        when 'availability'
+          jobs = jobs.where(job_type: value)
+        when 'job_types'
+          jobs = jobs.where(job_type: value)
+        when 'pay_rate_hourly'
+          min, max = value.split(',').map(&:to_i)
+          jobs = jobs.where(hourly_price: min..max)
+        when 'pay_rate_monthly'
+          min, max = value.split(',').map(&:to_i)
+          jobs = jobs.where(monthly_salary: min..max)
+        when 'experience'
+          jobs = jobs.where(experience: value)
+        when 'countries'
+          jobs = jobs.joins(:uploader).where(users: { country: value })
+        else
+          # Handle unexpected filters or log them
+        end
+      end
+      jobs
+    end
   end
 end

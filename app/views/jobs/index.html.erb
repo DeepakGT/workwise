@@ -78,7 +78,20 @@
                     <a href="#" title="">Clear</a>
                   </div>
                   <div class="rg-slider">
-                    <input class="rn-slider slider-input" type="hidden" name="pay_rate_hourly" value="5,50" />
+                    <input class="rn-slider slider-input pay_rate_hourly" type="hidden" name="pay_rate_hourly" value="0,0" />
+                  </div>
+                  <div class="rg-limit">
+                    <h4>1</h4>
+                    <h4>100+</h4>
+                  </div><!--rg-limit end-->
+                </div>
+                <div class="filter-dd">
+                  <div class="filter-ttl">
+                    <h3>Pay / Monthly ($)</h3>
+                    <a href="#" title="">Clear</a>
+                  </div>
+                  <div class="rg-slider">
+                    <input class="rn-slider slider-input pay_rate_monthly" type="hidden" name="pay_rate_monthly" value="0,0" />
                   </div>
                   <div class="rg-limit">
                     <h4>1</h4>
@@ -331,7 +344,8 @@ function initializeSlider() {
         format: '%s',
         width: 300,
         showLabels: true,
-        isRange: true
+        isRange: true,
+        value: '-1,-1' // Unique default values
     });
 
     // Bind mouseup event to the slider for API call
@@ -346,7 +360,7 @@ function resetSlider() {
     $('.slider-container').remove();
 
     // Recreate the slider input element
-    $('<input class="rn-slider slider-input" type="hidden" value="5,50" />').appendTo('.rg-slider');
+    $('<input class="rn-slider slider-input" type="hidden" value="-1,-1" />').appendTo('.rg-slider');
 
     // Reinitialize the slider
     initializeSlider();
@@ -380,8 +394,12 @@ function gatherFilters() {
 
     // Collect slider inputs
     document.querySelectorAll('.slider-input').forEach(slider => {
-        if (slider.value) {
-            filters[slider.name] = slider.value;
+        if (slider.value && slider.value !== "0,0") {
+            if (slider.classList.contains('pay_rate_hourly')) {
+                filters['pay_rate_hourly'] = slider.value;
+            } else if (slider.classList.contains('pay_rate_monthly')) {
+                filters['pay_rate_monthly'] = slider.value;
+            }
         }
     });
 
@@ -389,7 +407,7 @@ function gatherFilters() {
 }
 
 function hitApi() {
-    const searchQuery = $('.project-search-form input[name="search"]').val(); // Get the value from search input
+    const searchQuery = $('.job-search-form input[name="search"]').val(); // Get the value from search input
     const filters = gatherFilters(); // Assume gatherFilters() gathers filter values correctly
 
     $.ajax({
@@ -417,13 +435,18 @@ $(document).ready(function() {
     initializeSlider();
 
     // Initialize select2 for multiselects
-    $('select[multiple]').select2();
+    $('select[multiple]').select2().on('change', function() {
+        hitApi();
+    });
 
     // Bind the form submit event to trigger API call
     $('form').on('submit', function(event) {
         event.preventDefault();
         hitApi();
     });
+
+    // Trigger API call on document ready to load initial data
+    hitApi();
 });
 
 </script>
