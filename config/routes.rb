@@ -5,6 +5,12 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
+  resources :users do
+    collection do
+      get 'my-profile', to: 'users#my_profile'
+    end
+  end
+
   resources :projects, only: [:index, :create]
   resources :jobs, only: [:index]
 
