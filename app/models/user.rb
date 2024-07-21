@@ -16,6 +16,9 @@ class User < ApplicationRecord
 
   has_many :feedbacks, as: :feedbackable
 
+  has_one_attached :profile_picture
+  has_one_attached :profile_picture_banner
+
   def rating
     self.feedbacks.average(:rating)
   end

@@ -1,11 +1,11 @@
 <section class="cover-sec">
-  <img src="<%= asset_path('resources/cover-img.jpg') %>" alt="" width='1600' height='450'>
+  <img src="<%= profile_picture_banner_url %>" alt="" width='1600' height='450'>
   <div class="add-pic-box">
     <div class="container">
       <div class="row no-gutters">
         <div class="col-lg-12 col-sm-12">					
-          <input type="file" id="file">
-          <label for="file">Change Image</label>				
+          <input type="file" id="banner_file" name="profile_picture_banner">
+          <label for="banner_file">Change Image</label>				
         </div>
       </div>
     </div>
@@ -22,10 +22,10 @@
             <div class="main-left-sidebar">
               <div class="user_profile">
                 <div class="user-pro-img">
-                  <img src="<%= asset_path('resources/user-pro-img.png') %>" alt="" width='180' height='180'>
+                  <img src="<%= profile_picture_url %>" alt="" width='180' height='180'>
                   <div class="add-dp" id="OpenImgUpload">
-                    <input type="file" id="file">
-                    <label for="file"><i class="fas fa-camera"></i></label>												
+                    <input type="file" id="profile_file" name="profile_picture">
+                    <label for="profile_file"><i class="fas fa-camera"></i></label>												
                   </div>
                 </div><!--user-pro-img end-->
                 <div class="user_pro_status">
@@ -2078,3 +2078,48 @@
     </div> 
   </div>
 </main>
+
+<script>
+  bindChangeEventOnPicturesBtns = function () {
+    const profileInput = document.querySelector('input[name="profile_picture"]');
+    const bannerInput = document.querySelector('input[name="profile_picture_banner"]');
+
+    profileInput.addEventListener('change', function() {
+      uploadImage(this.files[0], 'profile_picture');
+    });
+
+    bannerInput.addEventListener('change', function() {
+      uploadImage(this.files[0], 'profile_picture_banner');
+    });
+
+    function uploadImage(file, type) {
+      const formData = new FormData();
+      formData.append(type, file);
+
+      fetch('/users/update_pictures', {
+        method: 'POST',
+        headers: {
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          if (type === 'profile_picture') {
+            document.querySelector('.user-pro-img img').src = data.url;
+          } else if (type === 'profile_picture_banner') {
+            document.querySelector('.cover-sec img').src = data.url;
+          }
+        } else {
+          alert('Failed to upload image');
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    } 
+  }
+
+  $(document).ready(function(){
+    bindChangeEventOnPicturesBtns();
+  })
+</script>

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :users do
     collection do
       get 'my-profile', to: 'users#my_profile'
+      post :update_pictures
     end
   end
 
