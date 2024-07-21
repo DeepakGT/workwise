@@ -16,11 +16,19 @@ class User < ApplicationRecord
 
   has_many :feedbacks, as: :feedbackable
 
+  # Followers
+  has_many :follower_relationships, foreign_key: :following_id, class_name: 'Follow'
+  has_many :followers, through: :follower_relationships, source: :follower
+
+  # Followings
+  has_many :following_relationships, foreign_key: :follower_id, class_name: 'Follow'
+  has_many :followings, through: :following_relationships, source: :following
+
   has_one_attached :profile_picture
   has_one_attached :profile_picture_banner
 
   def rating
-    self.feedbacks.average(:rating)
+    self.feedbacks.average(:rating) || 0
   end
 
   def self.from_omniauth(access_token)

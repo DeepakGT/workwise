@@ -32,11 +32,11 @@
                   <ul class="flw-status">
                     <li>
                       <span>Following</span>
-                      <b>34</b>
+                      <b><%= current_user.followings.count %></b>
                     </li>
                     <li>
                       <span>Followers</span>
-                      <b>155</b>
+                      <b><%= current_user.followers.count %></b>
                     </li>
                   </ul>
                 </div><!--user_pro_status end-->
@@ -115,17 +115,13 @@
           <div class="col-lg-6">
             <div class="main-ws-sec">
               <div class="user-tab-sec rewivew">
-                <h3>John Doe</h3>
+                <h3><%= current_user.decorate.full_name %></h3>
                 <div class="star-descp">
-                  <span>Graphic Designer at Self Employed</span>
-                  <ul>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star-half-o"></i></li>
-                  </ul>
-                  <a href="#" title="">Status</a>
+                  <span><%= current_user.profession.titleize %></span>
+                    <ul>
+                      <%= current_user.decorate.star_rating %>
+                    </ul>
+                  <%# <a href="#" title="">Status</a> %>
                 </div><!--star-descp end-->
                 <div class="tab-feed st2 settingjb">
                   <ul>
