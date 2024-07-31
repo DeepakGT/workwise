@@ -40,10 +40,6 @@
                   </ul>
                 </div>
                 <!--user_pro_status end-->
-                <div class="sd-title">
-                  <h3>Social Links</h3>
-                  <i class="la la-ellipsis-v"></i>
-                </div>
                 <ul class="social_links">
                   <li><a href="#" title=""><i class="la la-globe"></i> www.example.com</a></li>
                   <li><a href="#" title=""><i class="fa fa-facebook-square"></i> Http://www.facebook.com/john...</a></li>
@@ -135,13 +131,15 @@
                 <!--star-descp end-->
                 <div class="tab-feed st2 settingjb">
                   <ul>
-                    <li data-tab="feed-dd" class="active">
-                      <a href="#" title="">
-                      <img src="<%= asset_path('ic1.png') %>" alt="">
-                      <span>Feed</span>
-                      </a>
-                    </li>
-                    <li data-tab="info-dd">
+                    <!--
+                      <li data-tab="feed-dd" class="active">
+                        <a href="#" title="">
+                        <img src="<%= asset_path('ic1.png') %>" alt="">
+                        <span>Feed</span>
+                        </a>
+                      </li>
+                    -->
+                    <li data-tab="info-dd" class="active">
                       <a href="#" title="">
                       <img src="<%= asset_path('ic2.png') %>" alt="">
                       <span>Info</span>
@@ -185,14 +183,16 @@
               <div class="product-feed-tab" id="saved-jobs">
                 <%= render partial: '/users/my_profile/jobs' %>
               </div>
-              <div class="product-feed-tab current" id="feed-dd">
-                <%= render partial: '/users/my_profile/feeds' %>
-              </div>
+              <!--
+                <div class="product-feed-tab current" id="feed-dd">
+                  <%#= render partial: '/users/my_profile/feeds' %>
+                </div>
+              -->
               <!--product-feed-tab end-->
               <div class="product-feed-tab" id="my-bids">
                 <%= render partial: '/users/my_profile/bids' %>
               </div>
-              <div class="product-feed-tab" id="info-dd">
+              <div class="product-feed-tab current" id="info-dd">
                 <%= render partial: '/users/my_profile/info' %>
               </div>
               <div class="product-feed-tab" id="rewivewdata">
